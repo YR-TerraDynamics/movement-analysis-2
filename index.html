@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>index</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="index_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="index_files/libs/quarto-html/anchor.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="index_files/libs/bootstrap/bootstrap-1861bbae5b71fe29aff8c5472363b160.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#loading-the-libraries" id="toc-loading-the-libraries" class="nav-link active" data-scroll-target="#loading-the-libraries">Loading the libraries</a></li>
+  <li><a href="#load-the-movement-data-set-from-last-task" id="toc-load-the-movement-data-set-from-last-task" class="nav-link" data-scroll-target="#load-the-movement-data-set-from-last-task">Load the movement data set from last task</a></li>
+  <li><a href="#compute-movement-vectors-and-direction" id="toc-compute-movement-vectors-and-direction" class="nav-link" data-scroll-target="#compute-movement-vectors-and-direction">Compute movement vectors and direction</a></li>
+  <li><a href="#convert-dataset-into-spatial-format" id="toc-convert-dataset-into-spatial-format" class="nav-link" data-scroll-target="#convert-dataset-into-spatial-format">Convert dataset into spatial format</a></li>
+  <li><a href="#load-osm-highway-and-railway-data" id="toc-load-osm-highway-and-railway-data" class="nav-link" data-scroll-target="#load-osm-highway-and-railway-data">Load OSM highway and railway data</a></li>
+  <li><a href="#inspect-category-distributions" id="toc-inspect-category-distributions" class="nav-link" data-scroll-target="#inspect-category-distributions">Inspect category distributions</a></li>
+  <li><a href="#reproject-spatial-data-to-match-crs" id="toc-reproject-spatial-data-to-match-crs" class="nav-link" data-scroll-target="#reproject-spatial-data-to-match-crs">Reproject spatial data to match CRS</a></li>
+  <li><a href="#filter-and-group-infrastructure-types" id="toc-filter-and-group-infrastructure-types" class="nav-link" data-scroll-target="#filter-and-group-infrastructure-types">Filter and group infrastructure types</a></li>
+  <li><a href="#define-direction-alignment-functions" id="toc-define-direction-alignment-functions" class="nav-link" data-scroll-target="#define-direction-alignment-functions">Define direction alignment functions</a></li>
+  <li><a href="#find-nearest-infrastructure-segments" id="toc-find-nearest-infrastructure-segments" class="nav-link" data-scroll-target="#find-nearest-infrastructure-segments">Find nearest infrastructure segments</a></li>
+  <li><a href="#compute-distance-to-infrastructure" id="toc-compute-distance-to-infrastructure" class="nav-link" data-scroll-target="#compute-distance-to-infrastructure">Compute distance to infrastructure</a></li>
+  <li><a href="#compute-directional-alignment-features" id="toc-compute-directional-alignment-features" class="nav-link" data-scroll-target="#compute-directional-alignment-features">Compute directional alignment features</a></li>
+  <li><a href="#save-enriched-dataset" id="toc-save-enriched-dataset" class="nav-link" data-scroll-target="#save-enriched-dataset">Save enriched dataset</a></li>
+  <li><a href="#train-model-using-previous-pythontensorflow-setup" id="toc-train-model-using-previous-pythontensorflow-setup" class="nav-link" data-scroll-target="#train-model-using-previous-pythontensorflow-setup">Train model using previous python/tensorflow setup</a></li>
+  <li><a href="#compute-evaluation-metrics-for-random-forest-and-xgboost" id="toc-compute-evaluation-metrics-for-random-forest-and-xgboost" class="nav-link" data-scroll-target="#compute-evaluation-metrics-for-random-forest-and-xgboost">Compute evaluation metrics for Random Forest and XGBoost</a></li>
+  <li><a href="#compute-evaluation-metrics-for-neural-network" id="toc-compute-evaluation-metrics-for-neural-network" class="nav-link" data-scroll-target="#compute-evaluation-metrics-for-neural-network">Compute evaluation metrics for Neural Network</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+
+
+
+<div style="display: flex; align-items: center; margin-bottom: 20px;">
+<img src="images/logo.png" style="width: 250px; margin-right: 20px;">
+<h1 style="margin: 0;">
+Solution for Movement Analysis 2
+</h1>
+</div>
+<section id="loading-the-libraries" class="level2">
+<h2 class="anchored" data-anchor-id="loading-the-libraries">Loading the libraries</h2>
+<p>As always I start by loading the spatial and data manipulation libraries I’ll need: sf for spatial operations, dplyr for data wrangling, and purrr for functional programming tools. Then I inspect the contents of the osm.gpkg file using st_layers() so I can see which spatial layers are available before loading them.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">st_layers</span>(<span class="st">"osm.gpkg"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Driver: GPKG 
+Available layers:
+  layer_name geometry_type features fields              crs_name
+1    highway   Line String    43376      8 WGS 84 / UTM zone 50N
+2    railway   Line String     4095      7 WGS 84 / UTM zone 50N</code></pre>
+</div>
+</div>
+</section>
+<section id="load-the-movement-data-set-from-last-task" class="level2">
+<h2 class="anchored" data-anchor-id="load-the-movement-data-set-from-last-task">Load the movement data set from last task</h2>
+<p>I load the movement dataset containing my GPS trajectory features. This dataset includes the features I created in the last task. I will later enrich it with movement-derived and contextual features.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"full_dataset_features.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 1004732 Columns: 40
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr   (3): mode, geom, data
+dbl  (36): user_id, track_id, alt, steplength, timelag, speed, acceleration,...
+dttm  (1): datetime
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+</section>
+<section id="compute-movement-vectors-and-direction" class="level2">
+<h2 class="anchored" data-anchor-id="compute-movement-vectors-and-direction">Compute movement vectors and direction</h2>
+<p>Here I sort the data by trajectory and time so movement is sequential. Within each track_id, I compute step-wise displacement (dx_move, dy_move) using lead(). From this I calculate movement speed proxy (move_norm) and normalize the direction into unit vectors (ux, uy), which will later help compare movement direction with surrounding infrastructure.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(track_id, datetime) <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(track_id) <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">dx_move =</span> <span class="fu">lead</span>(x) <span class="sc">-</span> x,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">dy_move =</span> <span class="fu">lead</span>(y) <span class="sc">-</span> y,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">move_norm =</span> <span class="fu">sqrt</span>(dx_move<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> dy_move<span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">ux =</span> dx_move <span class="sc">/</span> move_norm,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">uy =</span> dy_move <span class="sc">/</span> move_norm</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="convert-dataset-into-spatial-format" class="level2">
+<h2 class="anchored" data-anchor-id="convert-dataset-into-spatial-format">Convert dataset into spatial format</h2>
+<p>I convert my dataframe into an sf spatial object so I can perform spatial operations like nearest-neighbour searches and distance calculations. I set the CRS to EPSG:32650 to match the projected OpenStreetMap data.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(df, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>), <span class="at">crs =</span> <span class="dv">32650</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="load-osm-highway-and-railway-data" class="level2">
+<h2 class="anchored" data-anchor-id="load-osm-highway-and-railway-data">Load OSM highway and railway data</h2>
+<p>I load the OpenStreetMap-derived layers for highways and railways. These will provide the environmental context that I will use to improve travel mode prediction.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>highway <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"osm.gpkg"</span>, <span class="at">layer =</span> <span class="st">"highway"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>railway  <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"osm.gpkg"</span>, <span class="at">layer =</span> <span class="st">"railway"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="inspect-category-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="inspect-category-distributions">Inspect category distributions</h2>
+<p>I explore the distribution of road and rail categories to understand which types are most common. This helps me decide how to group or simplify categories into more meaningful classes for modelling.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>railway <span class="sc">%&gt;%</span> <span class="fu">count</span>(railway, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 4 features and 2 fields
+Geometry type: MULTILINESTRING
+Dimension:     XY
+Bounding box:  xmin: 364825.2 ymin: 4366509 xmax: 526753.7 ymax: 4469604
+Projected CRS: WGS 84 / UTM zone 50N
+# A tibble: 4 × 3
+  railway      n                                                            geom
+* &lt;chr&gt;    &lt;int&gt;                                           &lt;MULTILINESTRING [m]&gt;
+1 rail      2296 ((451247.6 4416884, 451310.6 4416876), (451310.6 4416876, 4513…
+2 subway    1192 ((428653.3 4421270, 428688.2 4421203, 428728.5 4421116, 428757…
+3 platform   479 ((450297.4 4416918, 450716.3 4416925, 450754.3 4416926, 450787…
+4 Other      128 ((431409.5 4416662, 431409.5 4416683, 431407.5 4416855, 431404…</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>highway <span class="sc">%&gt;%</span> <span class="fu">count</span>(highway, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 7 features and 2 fields
+Geometry type: MULTILINESTRING
+Dimension:     XY
+Bounding box:  xmin: 364789.1 ymin: 4366496 xmax: 526909.6 ymax: 4469492
+Projected CRS: WGS 84 / UTM zone 50N
+# A tibble: 7 × 3
+  highway          n                                                        geom
+* &lt;chr&gt;        &lt;int&gt;                                       &lt;MULTILINESTRING [m]&gt;
+1 Other        19984 ((442311.7 4417575, 442239.4 4417563, 442215.9 4417561, 44…
+2 residential   6759 ((448538.6 4427185, 448541.1 4427137, 448544.4 4427067, 44…
+3 tertiary      6161 ((447158 4416715, 447158.5 4416730), (447158.5 4416730, 44…
+4 secondary     2957 ((447810.6 4417531, 447811.8 4417504), (448149.5 4416709, …
+5 motorway      2897 ((454847.6 4417555, 455099 4417554), (467813.1 4417334, 46…
+6 primary       2441 ((447837.8 4416698, 447837.9 4416684), (448151.2 4416695, …
+7 unclassified  2177 ((448295.5 4425826, 448257.6 4425871), (448065.9 4425820, …</code></pre>
+</div>
+</div>
+</section>
+<section id="reproject-spatial-data-to-match-crs" class="level2">
+<h2 class="anchored" data-anchor-id="reproject-spatial-data-to-match-crs">Reproject spatial data to match CRS</h2>
+<p>I ensure that both highway and railway datasets are in the same coordinate reference system as my movement data. This is necessary so that all spatial distances and spatial relationships are computed correctly.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>railway   <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(railway, <span class="dv">32650</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>highway <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(highway, <span class="dv">32650</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="filter-and-group-infrastructure-types" class="level2">
+<h2 class="anchored" data-anchor-id="filter-and-group-infrastructure-types">Filter and group infrastructure types</h2>
+<p>I simplify the OSM categories into more meaningful groups: main rail vs metro lines, and roads into high-, mid-, and low-capacity types. I also extract cycling infrastructure separately using the cycleway attribute. This reduces complexity while preserving important contextual distinctions.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>rail_main <span class="ot">&lt;-</span> <span class="fu">subset</span>(railway, railway <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"rail"</span>))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>rail_metro <span class="ot">&lt;-</span> <span class="fu">subset</span>(railway, railway <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"subway"</span>))</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>road_high <span class="ot">&lt;-</span> <span class="fu">subset</span>(highway, highway <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"motorway"</span>, <span class="st">"primary"</span>))</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>road_mid  <span class="ot">&lt;-</span> <span class="fu">subset</span>(highway, highway <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"secondary"</span>, <span class="st">"tertiary"</span>))</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>road_low  <span class="ot">&lt;-</span> <span class="fu">subset</span>(highway, highway <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"residential"</span>))</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>road_cycle <span class="ot">&lt;-</span> highway[<span class="sc">!</span><span class="fu">is.na</span>(highway<span class="sc">$</span>cycleway), ]</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>road_cycle <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(road_cycle)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="define-direction-alignment-functions" class="level2">
+<h2 class="anchored" data-anchor-id="define-direction-alignment-functions">Define direction alignment functions</h2>
+<p>I define helper functions to compute direction-based features. First, get_dir() extracts the orientation of a line segment as a unit vector. Then compute_alignment() measures how well my movement direction aligns with nearby infrastructure by computing a dot product between movement vectors and segment directions.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>get_dir <span class="ot">&lt;-</span> <span class="cf">function</span>(line) {</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  coords <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(line)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  dx <span class="ot">&lt;-</span> <span class="fu">tail</span>(coords[,<span class="dv">1</span>], <span class="dv">1</span>) <span class="sc">-</span> coords[<span class="dv">1</span>,<span class="dv">1</span>]</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  dy <span class="ot">&lt;-</span> <span class="fu">tail</span>(coords[,<span class="dv">2</span>], <span class="dv">1</span>) <span class="sc">-</span> coords[<span class="dv">1</span>,<span class="dv">2</span>]</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  norm <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(dx<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> dy<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(dx<span class="sc">/</span>norm, dy<span class="sc">/</span>norm)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>compute_alignment <span class="ot">&lt;-</span> <span class="cf">function</span>(df, segments, idx) {</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map2_dbl</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df), idx, <span class="sc">~</span>{</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    v <span class="ot">&lt;-</span> <span class="fu">get_dir</span>(segments[.y, ])</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    df<span class="sc">$</span>ux[.x] <span class="sc">*</span> v[<span class="dv">1</span>] <span class="sc">+</span> df<span class="sc">$</span>uy[.x] <span class="sc">*</span> v[<span class="dv">2</span>]</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="find-nearest-infrastructure-segments" class="level2">
+<h2 class="anchored" data-anchor-id="find-nearest-infrastructure-segments">Find nearest infrastructure segments</h2>
+<p>I identify the closest infrastructure segment for each GPS point using st_nearest_feature(). This allows me to associate every movement observation with its most relevant nearby road or railway context.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>rail_idx_main  <span class="ot">&lt;-</span> <span class="fu">st_nearest_feature</span>(df_sf, rail_main)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>rail_idx_metro <span class="ot">&lt;-</span> <span class="fu">st_nearest_feature</span>(df_sf, rail_metro)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>road_idx_high <span class="ot">&lt;-</span> <span class="fu">st_nearest_feature</span>(df_sf, road_high)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>road_idx_mid  <span class="ot">&lt;-</span> <span class="fu">st_nearest_feature</span>(df_sf, road_mid)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>road_idx_low  <span class="ot">&lt;-</span> <span class="fu">st_nearest_feature</span>(df_sf, road_low)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>road_idx_cycle <span class="ot">&lt;-</span> <span class="fu">st_nearest_feature</span>(df_sf, road_cycle)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="compute-distance-to-infrastructure" class="level2">
+<h2 class="anchored" data-anchor-id="compute-distance-to-infrastructure">Compute distance to infrastructure</h2>
+<p>I compute the exact spatial distance from each point to its nearest infrastructure of each type. These distances become strong contextual features that help distinguish, for example, cycling on roads versus riding near rail lines.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>dist_road_high <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">st_distance</span>(df_sf, road_high[road_idx_high,], <span class="at">by_element =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>dist_road_mid  <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">st_distance</span>(df_sf, road_mid[road_idx_mid,], <span class="at">by_element =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>dist_road_low  <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">st_distance</span>(df_sf, road_low[road_idx_low,], <span class="at">by_element =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>dist_rail_main  <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">st_distance</span>(df_sf, rail_main[rail_idx_main,], <span class="at">by_element =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>dist_rail_metro <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">st_distance</span>(df_sf, rail_metro[rail_idx_metro,], <span class="at">by_element =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>dist_road_cycle <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">st_distance</span>(df_sf, road_cycle[road_idx_cycle,], <span class="at">by_element =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="compute-directional-alignment-features" class="level2">
+<h2 class="anchored" data-anchor-id="compute-directional-alignment-features">Compute directional alignment features</h2>
+<p>I extend my feature set by calculating how aligned each movement step is with nearby infrastructure. This helps capture whether a trajectory follows the direction of a road, railway, or cycling path.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>align_rail_main  <span class="ot">&lt;-</span> <span class="fu">compute_alignment</span>(df, rail_main, rail_idx_main)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>align_rail_metro <span class="ot">&lt;-</span> <span class="fu">compute_alignment</span>(df, rail_metro, rail_idx_metro)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>align_road_high <span class="ot">&lt;-</span> <span class="fu">compute_alignment</span>(df, road_high, road_idx_high)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>align_road_mid  <span class="ot">&lt;-</span> <span class="fu">compute_alignment</span>(df, road_mid, road_idx_mid)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>align_road_low  <span class="ot">&lt;-</span> <span class="fu">compute_alignment</span>(df, road_low, road_idx_low)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>align_road_cycle <span class="ot">&lt;-</span> <span class="fu">compute_alignment</span>(df, road_cycle, road_idx_cycle)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="save-enriched-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="save-enriched-dataset">Save enriched dataset</h2>
+<p>Finally, I save the enriched dataset containing both movement-based and context-aware features. This file is then ready for model training and for comparing performance against last week’s baseline model.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(df, <span class="st">"full_dataset_with_context.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="train-model-using-previous-pythontensorflow-setup" class="level2">
+<h2 class="anchored" data-anchor-id="train-model-using-previous-pythontensorflow-setup">Train model using previous python/tensorflow setup</h2>
+<p>In this step, I switch from feature engineering in R to model training in Python. I reuse the same model architecture from last week so that any performance differences can be attributed mainly to the new context features, not changes in the model itself.</p>
+<p>By keeping the architecture fixed, I make the comparison fair: the only real change is the input feature set.</p>
+</section>
+<section id="compute-evaluation-metrics-for-random-forest-and-xgboost" class="level2">
+<h2 class="anchored" data-anchor-id="compute-evaluation-metrics-for-random-forest-and-xgboost">Compute evaluation metrics for Random Forest and XGBoost</h2>
+<p>I import the prediction results from the Python models back into R.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>rf_results  <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"rf_predictions.csv"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>xgb_results <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"xgb_predictions.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>I restore the original class labels from the numeric predictions produced by the Python models.</p>
+<p>First, I load the label mapping that was saved during preprocessing in Python. Since the mapping is stored in JSON format, I convert it into a usable R structure and invert it, so that numeric labels can be translated back into their original class names.</p>
+<p>Finally, I apply this inverse mapping to both the true labels and predicted labels for the Random Forest and XGBoost results. This makes it so that all evaluation metrics and visualisations use the original, human-readable class names instead of encoded numbers.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>label_map <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="st">"label_map.json"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>label_map <span class="ot">&lt;-</span> <span class="fu">unlist</span>(label_map)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>inv_map <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">names</span>(label_map), label_map)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>rf_results<span class="sc">$</span>y_true <span class="ot">&lt;-</span> inv_map[<span class="fu">as.character</span>(rf_results<span class="sc">$</span>y_true)]</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>rf_results<span class="sc">$</span>y_pred <span class="ot">&lt;-</span> inv_map[<span class="fu">as.character</span>(rf_results<span class="sc">$</span>y_pred)]</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>xgb_results<span class="sc">$</span>y_true <span class="ot">&lt;-</span> inv_map[<span class="fu">as.character</span>(xgb_results<span class="sc">$</span>y_true)]</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>xgb_results<span class="sc">$</span>y_pred <span class="ot">&lt;-</span> inv_map[<span class="fu">as.character</span>(xgb_results<span class="sc">$</span>y_pred)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>In this step, I evaluate the performance of the trained Random Forest and XGBoost models using confusion matrices. From these, I extract overall accuracy and macro F1-score to get a high-level comparison of model performance. I also compute class-wise metrics such as recall, precision, and F1-score to understand how well each model performs on individual travel modes. This is important because overall accuracy can hide weaknesses in specific classes, especially in an imbalanced multi-class setting like transport mode classification. By structuring the results into a summary table and a detailed comparison table, I can directly compare both models across all relevant evaluation metrics.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>cm_rf <span class="ot">&lt;-</span> <span class="fu">confusionMatrix</span>(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">factor</span>(rf_results<span class="sc">$</span>y_pred),</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">factor</span>(rf_results<span class="sc">$</span>y_true)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>cm_xgb <span class="ot">&lt;-</span> <span class="fu">confusionMatrix</span>(</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">factor</span>(xgb_results<span class="sc">$</span>y_pred),</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">factor</span>(xgb_results<span class="sc">$</span>y_true)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co"># overall metrics</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>acc_rf  <span class="ot">&lt;-</span> cm_rf<span class="sc">$</span>overall[<span class="st">"Accuracy"</span>]</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>acc_xgb <span class="ot">&lt;-</span> cm_xgb<span class="sc">$</span>overall[<span class="st">"Accuracy"</span>]</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>f1_rf  <span class="ot">&lt;-</span> <span class="fu">mean</span>(cm_rf<span class="sc">$</span>byClass[, <span class="st">"F1"</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>f1_xgb <span class="ot">&lt;-</span> <span class="fu">mean</span>(cm_xgb<span class="sc">$</span>byClass[, <span class="st">"F1"</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="co"># class-wise metrics table</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>classes <span class="ot">&lt;-</span> <span class="fu">rownames</span>(cm_rf<span class="sc">$</span>byClass)</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>comparison_table <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">Class =</span> classes,</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">RF_Recall  =</span> cm_rf<span class="sc">$</span>byClass[, <span class="st">"Sensitivity"</span>],</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">XGB_Recall =</span> cm_xgb<span class="sc">$</span>byClass[, <span class="st">"Sensitivity"</span>],</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">RF_Precision  =</span> cm_rf<span class="sc">$</span>byClass[, <span class="st">"Pos Pred Value"</span>],</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">XGB_Precision =</span> cm_xgb<span class="sc">$</span>byClass[, <span class="st">"Pos Pred Value"</span>],</span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">RF_F1  =</span> cm_rf<span class="sc">$</span>byClass[, <span class="st">"F1"</span>],</span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">XGB_F1 =</span> cm_xgb<span class="sc">$</span>byClass[, <span class="st">"F1"</span>]</span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a><span class="co"># summary table (overall performance)</span></span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a>results_summary <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a>  <span class="at">Model =</span> <span class="fu">c</span>(<span class="st">"Random Forest"</span>, <span class="st">"XGBoost"</span>),</span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a>  <span class="at">Accuracy =</span> <span class="fu">c</span>(acc_rf, acc_xgb),</span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a>  <span class="at">Macro_F1 =</span> <span class="fu">c</span>(f1_rf, f1_xgb)</span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a><span class="co"># outputs </span></span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a>results_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Model  Accuracy  Macro_F1
+1 Random Forest 0.7224093 0.6983966
+2       XGBoost 0.7129781 0.7153429</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>comparison_table</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                      Class RF_Recall XGB_Recall RF_Precision XGB_Precision
+Class: bike     Class: bike 0.7111581  0.7031388    0.7388823     0.7127943
+Class: bus       Class: bus 0.8004253  0.7663995    0.7131454     0.7262527
+Class: car       Class: car 0.4115417  0.4179780    0.8185073     0.7481937
+Class: subway Class: subway 0.8084864  0.8081512    0.9283405     0.9355890
+Class: train   Class: train 0.4013583  0.5578913    0.9983910     0.9948097
+Class: walk     Class: walk 0.8049965  0.8049818    0.6624947     0.6511053
+                  RF_F1    XGB_F1
+Class: bike   0.7247552 0.7079336
+Class: bus    0.7542688 0.7457862
+Class: car    0.5477016 0.5363336
+Class: subway 0.8642780 0.8672134
+Class: train  0.5725490 0.7148777
+Class: walk   0.7268267 0.7199128</code></pre>
+</div>
+</div>
+<p>Here I convert the confusion matrix tables into a format suitable for plotting with ggplot2 and visualise them as heatmaps. Each tile represents the number of predictions for a given true vs predicted class combination, which makes it easy to see where the models are making mistakes. Correct predictions appear along the diagonal, while off-diagonal values highlight confusion between similar transport modes. This visual representation helps complement the numerical metrics by showing how and where the models are failing, rather than just how often.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(cm_rf<span class="sc">$</span>table) <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Prediction, Reference, <span class="at">fill =</span> Freq)) <span class="sc">+</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> Freq), <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"white"</span>, <span class="at">high =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Random Forest Confusion Matrix"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(cm_xgb<span class="sc">$</span>table) <span class="sc">|&gt;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Prediction, Reference, <span class="at">fill =</span> Freq)) <span class="sc">+</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> Freq), <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"white"</span>, <span class="at">high =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"XGBoost Confusion Matrix"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-17-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="compute-evaluation-metrics-for-neural-network" class="level2">
+<h2 class="anchored" data-anchor-id="compute-evaluation-metrics-for-neural-network">Compute evaluation metrics for Neural Network</h2>
+<p>Next, I extend the same evaluation pipeline to the Neural Network model to ensure a fair comparison across all approaches. I first compute accuracy and macro F1-score, then build a combined results table that includes all three models. I also compute class-wise precision, recall, and F1-score for the neural network and merge them with the results from Random Forest and XGBoost. This allows a direct side-by-side comparison of all models on the same evaluation metrics and ensures consistency in how performance is measured.</p>
+<p>Before computing the confusion matrix for the neural network, I load its prediction output from a CSV file and reconstruct the original class labels using a stored label mapping. Since the neural network outputs encoded labels, I reverse-map them back to human-readable transport mode names. This step is necessary to make the evaluation interpretable and consistent with the other models. Once the labels are restored, I compute the confusion matrix in the same way as for the other models, ensuring a fair and aligned comparison across all three approaches.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load NN lables</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>nn_results <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"nn_predictions_with_context.csv"</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Map lables to results</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>label_map <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="st">"nn_label_map.json"</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>label_map <span class="ot">&lt;-</span> <span class="fu">unlist</span>(label_map)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>inv_map <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">names</span>(label_map), label_map)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>nn_results<span class="sc">$</span>y_true <span class="ot">&lt;-</span> inv_map[<span class="fu">as.character</span>(nn_results<span class="sc">$</span>y_true)]</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>nn_results<span class="sc">$</span>y_pred <span class="ot">&lt;-</span> inv_map[<span class="fu">as.character</span>(nn_results<span class="sc">$</span>y_pred)]</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>cm_nn <span class="ot">&lt;-</span> <span class="fu">confusionMatrix</span>(</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">factor</span>(nn_results<span class="sc">$</span>y_pred),</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">factor</span>(nn_results<span class="sc">$</span>y_true)</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot cm</span></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(cm_nn<span class="sc">$</span>table) <span class="sc">|&gt;</span></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Prediction, Reference, <span class="at">fill =</span> Freq)) <span class="sc">+</span></span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> Freq), <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"white"</span>, <span class="at">high =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Neural Network Confusion Matrix"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract accuracy and F1</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>acc_nn <span class="ot">&lt;-</span> cm_nn<span class="sc">$</span>overall[<span class="st">"Accuracy"</span>]</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>f1_nn  <span class="ot">&lt;-</span> <span class="fu">mean</span>(cm_nn<span class="sc">$</span>byClass[, <span class="st">"F1"</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>results_summary <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Model =</span> <span class="fu">c</span>(<span class="st">"Random Forest"</span>, <span class="st">"XGBoost"</span>, <span class="st">"Neural Network"</span>),</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Accuracy =</span> <span class="fu">c</span>(acc_rf, acc_xgb, acc_nn),</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">Macro_F1 =</span> <span class="fu">c</span>(f1_rf, f1_xgb, f1_nn)</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract classwise results</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>comparison_table <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">Class =</span> <span class="fu">rownames</span>(cm_rf<span class="sc">$</span>byClass),</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">RF_Recall  =</span> cm_rf<span class="sc">$</span>byClass[, <span class="st">"Sensitivity"</span>],</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">XGB_Recall =</span> cm_xgb<span class="sc">$</span>byClass[, <span class="st">"Sensitivity"</span>],</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">NN_Recall  =</span> cm_nn<span class="sc">$</span>byClass[, <span class="st">"Sensitivity"</span>],</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">RF_Precision  =</span> cm_rf<span class="sc">$</span>byClass[, <span class="st">"Pos Pred Value"</span>],</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">XGB_Precision =</span> cm_xgb<span class="sc">$</span>byClass[, <span class="st">"Pos Pred Value"</span>],</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">NN_Precision  =</span> cm_nn<span class="sc">$</span>byClass[, <span class="st">"Pos Pred Value"</span>],</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">RF_F1  =</span> cm_rf<span class="sc">$</span>byClass[, <span class="st">"F1"</span>],</span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">XGB_F1 =</span> cm_xgb<span class="sc">$</span>byClass[, <span class="st">"F1"</span>],</span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">NN_F1  =</span> cm_nn<span class="sc">$</span>byClass[, <span class="st">"F1"</span>]</span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a>results_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           Model  Accuracy  Macro_F1
+1  Random Forest 0.7224093 0.6983966
+2        XGBoost 0.7129781 0.7153429
+3 Neural Network 0.6548311 0.6610809</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>comparison_table</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                      Class RF_Recall XGB_Recall NN_Recall RF_Precision
+Class: bike     Class: bike 0.7111581  0.7031388 0.7733937    0.7388823
+Class: bus       Class: bus 0.8004253  0.7663995 0.5682216    0.7131454
+Class: car       Class: car 0.4115417  0.4179780 0.4790956    0.8185073
+Class: subway Class: subway 0.8084864  0.8081512 0.8235018    0.9283405
+Class: train   Class: train 0.4013583  0.5578913 0.5705045    0.9983910
+Class: walk     Class: walk 0.8049965  0.8049818 0.7115478    0.6624947
+              XGB_Precision NN_Precision     RF_F1    XGB_F1     NN_F1
+Class: bike       0.7127943    0.6610968 0.7247552 0.7079336 0.7128497
+Class: bus        0.7262527    0.7066114 0.7542688 0.7457862 0.6299050
+Class: car        0.7481937    0.4996303 0.5477016 0.5363336 0.4891475
+Class: subway     0.9355890    0.7406403 0.8642780 0.8672134 0.7798762
+Class: train      0.9948097    0.8212291 0.5725490 0.7148777 0.6732824
+Class: walk       0.6511053    0.6537475 0.7268267 0.7199128 0.6814242</code></pre>
+</div>
+</div>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<p>The results show a clear improvement in travel mode classification after incorporating contextual environmental features compared to the movement-only baseline from last week. All models benefited from the additional information, with Random Forest achieving the strongest overall performance at 0.72 accuracy and 0.70 macro F1, closely followed by XGBoost with 0.71 accuracy and the highest macro F1 of 0.72. The Neural Network also improved but remained the weakest model overall, reaching 0.65 accuracy and 0.66 macro F1. Compared to last week, this corresponds to a consistent gain of roughly 5–6 percentage points in accuracy for the tree-based models and a smaller but still noticeable improvement for the neural network. At class level, performance changes are uneven: subway and walking remain the most reliably classified modes across all models, with consistently high recall and F1-scores, while cycling also shows strong results, particularly in the neural network. The most difficult class continues to be car, which remains poorly separated from other road-based transport modes and shows relatively low recall across all models. Train classification, however, improves notably compared to last week, especially in XGBoost and the neural network, suggesting that railway proximity and alignment features provide meaningful additional signal.</p>
+</section>
+<section id="interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="interpretation">Interpretation</h2>
+<p>Overall, these results suggest that contextual infrastructure features add substantial predictive value beyond raw movement dynamics. Distance to roads and railways helps the model infer likely transport mode based on spatial constraints, while directional alignment captures whether movement follows the orientation of infrastructure, which is particularly informative for rail- and road-based travel. This shifts the problem from purely trajectory-based classification to a more realistic setting where environmental constraints guide movement. Among the models, Random Forest appears most robust, likely due to its ability to handle heterogeneous feature interactions without heavy tuning, while XGBoost benefits from better class balancing performance. The neural network improves but still underperforms, indicating that it may require further tuning or more data to fully exploit the richer feature space.</p>
+<p>Despite the overall gains, persistent confusion between car and other road-based modes highlights that these classes share similar spatial and movement patterns even with added context. Future improvements could focus on richer contextual signals such as proximity to intersections, traffic regulations, or temporal patterns to further separate these overlapping categories.</p>
+<p>I initially expected the spatial context features to have a much larger impact on model performance than what was actually observed. While they do lead to a clear and consistent improvement across all models, the gain is more moderate than anticipated, especially given how directly these features relate to real-world movement constraints like road networks and railway lines. In particular, I assumed that proximity and alignment to infrastructure would significantly reduce confusion between similar transport modes, but the results show that certain classes, especially car and bus, remain difficult to separate even with this additional context. This suggests that while spatial features add valuable signal, they are not fully sufficient on their own to resolve ambiguities in movement behavior, and that other factors such as speed patterns, temporal structure, or more detailed contextual data may play a larger role than initially expected.</p>
+<p>If I had more time, I would focus on further improving both the feature engineering and the model design to better exploit the available information. One direction would be to test feature selection or regularization techniques, especially for the neural network, since some of the spatial features may be redundant or noisy and could be hurting performance rather than helping it. I would also experiment with removing or simplifying certain context variables to see whether a more compact feature set actually generalises better. Another improvement would be to engineer additional contextual features, such as distance to intersections, road curvature, speed limits (if available), or temporal features like time of day and weekday patterns, which could help distinguish between similar transport modes such as car and bus. It would also be interesting to aggregate context over multiple nearby segments instead of relying only on the single nearest feature, since movement is often influenced by a broader environment rather than one closest object. On the modelling side, I would try more systematic hyperparameter tuning for all models, especially the neural network, and possibly explore stronger architectures such as recurrent or sequence-based models that can better capture trajectory dynamics over time. Finally, I would evaluate feature importance more carefully, to better understand which spatial signals actually contribute most to prediction performance and which might be adding unnecessary noise.</p>
+<p>One important limitation of this workflow is the computational cost of the spatial feature engineering step. Calculating nearest infrastructure features, distances, and alignment values using sf operations took several hours to complete, especially when working with large numbers of GPS points and multiple spatial layers. This made the pipeline relatively slow and difficult to iterate on during development. In future work, I would try to optimise this part of the workflow by using more efficient spatial processing approaches, for example by leveraging spatial databases such as DuckDB with spatial extensions, or other indexing-based methods that can significantly speed up nearest-neighbour and distance queries. It may also be worth precomputing certain spatial joins or simplifying geometries to reduce computational overhead. Improving this part of the pipeline would make experimentation much faster and allow for more extensive feature engineering and model testing within the same timeframe.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
